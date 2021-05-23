@@ -27,6 +27,13 @@ class PatientscreenController extends AbstractController
     {
         return $this->render('patientscreen/patientHome.html.twig');
     }
+    /**
+     * @Route("/info", name="info")
+     */
+    public function login()
+    {
+        return $this->render('patientscreen/form.html.twig');
+    }
    
     /**
      * @Route("/rdv", name="patient_rdv", methods={"GET"})
@@ -37,5 +44,7 @@ class PatientscreenController extends AbstractController
             'vaccinations' => $vaccinationRepository->findAll(),
         ]);
     }
+
+
 
 }
