@@ -30,9 +30,24 @@ class PatientscreenController extends AbstractController
     /**
      * @Route("/info", name="info")
      */
-    public function login()
+    public function login(Request $request )
     {
-        return $this->render('patientscreen/form.html.twig');
+        $patient = new Patient();
+
+        $form = $this->createFormBuilder($patient)
+            ->add('CNE')
+            ->getForm();
+        
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                
+    
+                return $this->redirectToRoute('patient_rdv', ['CNE' => $patient->getCNE()]);
+            }    
+        return $this->render('patientscreen/form.html.twig' , [
+            'form' => $form->createView() 
+        ]);
     }
    
     /**
@@ -41,9 +56,12 @@ class PatientscreenController extends AbstractController
     public function index(VaccinationRepository $vaccinationRepository): Response
     {
         return $this->render('patientscreen/vaccinationRDV.html.twig', [
-            'vaccinations' => $vaccinationRepository->findAll(),
+            'vaccinations' => $vaccinationRepository->findOneByTitle(),
         ]);
     }
+    
+
+
 
 
 
