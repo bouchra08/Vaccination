@@ -18,15 +18,16 @@ class VaccinationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Vaccination::class);
     }
+    
 
     // /**
     //  * @return Vaccination[] Returns an array of Vaccination objects
     //  */
-    /*
+    
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
+            ->andWhere('v.patient = :val')
             ->setParameter('val', $value)
             ->orderBy('v.id', 'ASC')
             ->setMaxResults(10)
@@ -34,7 +35,7 @@ class VaccinationRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Vaccination

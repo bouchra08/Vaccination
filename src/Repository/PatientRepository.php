@@ -18,7 +18,8 @@ class PatientRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Patient::class);
     }
-
+    
+    
     // /**
     //  * @return Patient[] Returns an array of Patient objects
     //  */

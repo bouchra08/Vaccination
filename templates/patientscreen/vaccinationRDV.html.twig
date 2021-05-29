@@ -47,7 +47,7 @@
         <tbody>
         {% for vaccination in vaccinations %}
             <tr>
-                <td>{{ vaccination.id }}</td>
+                <td>{{ vaccination.patient.id }}</td>
                 <td>{{ vaccination.statut }}</td>
                 <td>{{ vaccination.dateVaccination ? vaccination.dateVaccination|date('Y-m-d') : '' }}</td>
                 <td>

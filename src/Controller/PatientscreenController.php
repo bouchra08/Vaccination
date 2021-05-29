@@ -43,7 +43,7 @@ class PatientscreenController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 
     
-                return $this->redirectToRoute('patient_rdv', ['CNE' => $patient->getCNE()]);
+                return $this->redirectToRoute('patient_rdv', ['cne' => $patient->getCNE()]);
             }    
         return $this->render('patientscreen/form.html.twig' , [
             'form' => $form->createView() 
@@ -51,13 +51,24 @@ class PatientscreenController extends AbstractController
     }
    
     /**
-     * @Route("/rdv", name="patient_rdv", methods={"GET"})
+     * @Route("/rdv{cne}", name="patient_rdv", methods={"GET"})
+     * 
+     * $product->getCategory()->getName();
+*     public function index($cne,VaccinationRepository $vaccinationRepository): Response
      */
-    public function index(VaccinationRepository $vaccinationRepository): Response
+    public function index($cne,PatientRepository $patientRepository,VaccinationRepository $vaccinationRepository): Response
     {
+        $patient = $patientRepository->findBy(array('CNE'=> $cne));
+        //$id=$patient->getId();
+        if (!$patient) {
+                throw $this->createNotFoundException(
+                    'No product found for id '.$cne
+                );
+            }
         return $this->render('patientscreen/vaccinationRDV.html.twig', [
-            'vaccinations' => $vaccinationRepository->findOneByTitle(),
+            'vaccinations' => $vaccinationRepository->findByExampleField($patient),
         ]);
+        
     }
     
 
