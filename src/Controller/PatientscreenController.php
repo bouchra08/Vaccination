@@ -20,15 +20,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class PatientscreenController extends AbstractController
 {
     
+    
     /**
-     * @Route("/", name="home")
-     */
-    public function home()
-    {
-        return $this->render('patientscreen/patientHome.html.twig');
-    }
-    /**
-     * @Route("/info", name="info")
+     * @Route("/", name="info")
      */
     public function login(Request $request )
     {
@@ -54,15 +48,15 @@ class PatientscreenController extends AbstractController
      * @Route("/rdv{cne}", name="patient_rdv", methods={"GET"})
      * 
      * $product->getCategory()->getName();
-*     public function index($cne,VaccinationRepository $vaccinationRepository): Response
+*     
      */
     public function index($cne,PatientRepository $patientRepository,VaccinationRepository $vaccinationRepository): Response
     {
         $patient = $patientRepository->findBy(array('CNE'=> $cne));
-        //$id=$patient->getId();
+        
         if (!$patient) {
                 throw $this->createNotFoundException(
-                    'No product found for id '.$cne
+                    'No patient found for id '.$cne
                 );
             }
         return $this->render('patientscreen/vaccinationRDV.html.twig', [
